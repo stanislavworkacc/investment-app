@@ -9,10 +9,7 @@ import { Subject } from 'rxjs'
 @Injectable()
 export class InvestmentService implements OnDestroy {
   investmentServerData!: IInvestment
-  investmentTypeData!: string[]
   investmentPreparedData!: IInvestmentPreparedData
-  activeTab: number = 0
-  categoryTab!: string[]
 
   public destroy$: Subject<boolean> = new Subject<boolean>()
 
