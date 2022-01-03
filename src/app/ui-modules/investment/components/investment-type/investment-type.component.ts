@@ -15,7 +15,7 @@ import { isQueryParamNumber} from "@shared/utils/common-utils";
 export class InvestmentTypeComponent implements OnInit, OnDestroy {
   areTabsAvailable: boolean = true
   categoryTabsData!: string[]
-  currentSelected!: IInvestmentData[]
+  selectedTabData!: IInvestmentData[]
   preparedInvestmentData!: IInvestmentPreparedData
   activeTab: number = -1
   destroy$: Subject<boolean> = new Subject<boolean>()
@@ -60,13 +60,14 @@ export class InvestmentTypeComponent implements OnInit, OnDestroy {
 
   private changeTab(params: Params, categoryTabNames: string[]): void {
     const { tab } = params
-    this.activeTab = isQueryParamNumber(tab)
+    const selectedTab = isQueryParamNumber(tab);
+    this.activeTab = selectedTab;
 
     if (this.isNotFound(categoryTabNames)) {
       this.notFoundRedirect()
     }
 
-    this.currentSelected = this.preparedInvestmentData[categoryTabNames[tab]]
+    this.selectedTabData = this.preparedInvestmentData[categoryTabNames[selectedTab]]
   }
 
   private isNotFound(categoryTabs: string[]): boolean {
