@@ -8,28 +8,28 @@ import { Subject } from 'rxjs'
 
 @Injectable()
 export class InvestmentService implements OnDestroy {
-  investmentServerData!: IInvestment
+  investmentTotal!: number;
   investmentPreparedData!: IInvestmentPreparedData
 
   public destroy$: Subject<boolean> = new Subject<boolean>()
 
   constructor(private apiService: ApiService) {}
 
-  private fetch(): Promise<IInvestment> {
+  private fetch(): Promise<IInvestmentData[]> {
     return new Promise((res) => {
       this.apiService
         .get<IInvestment>(Api.Links.mockMain)
         .pipe(takeUntil(this.destroy$))
-        .subscribe((investmentServerData: IInvestment) => {
-          this.investmentServerData = investmentServerData
-          this.prepareInvestmentsData(this.investmentServerData.data)
-          return res(investmentServerData)
+        .subscribe(({data, total}: IInvestment) => {
+          this.investmentTotal = total;
+          this.investmentPreparedData = this.prepareInvestmentsData(data)
+          return res(data)
         })
     })
   }
 
-  private prepareInvestmentsData(data: IInvestmentData[]): void {
-    this.investmentPreparedData = data.reduce(
+  private prepareInvestmentsData(data: IInvestmentData[]): IInvestmentPreparedData {
+    return data.reduce(
       (accum, item: IInvestmentData): IInvestmentPreparedData => {
         if (!Object.keys(accum).includes(item.type)) {
           accum[item.type] = [item]
@@ -43,8 +43,8 @@ export class InvestmentService implements OnDestroy {
     )
   }
 
-  private isInvestmentData(): IInvestmentPreparedData {
-    return this.investmentServerData && this.investmentPreparedData
+  private isInvestmentData(): boolean {
+    return !!this.investmentPreparedData
   }
 
   prepareInvestmentCategoryType(
@@ -68,7 +68,7 @@ export class InvestmentService implements OnDestroy {
   }
 
   getTotalInvestments(): number {
-    return this.investmentServerData.total
+    return this.investmentTotal
   }
 
   ngOnDestroy(): void {
