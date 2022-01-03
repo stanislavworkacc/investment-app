@@ -7,7 +7,7 @@ import { HeadingCardComponent } from '@ui-modules/investment/components/heading-
 import { SummaryCardComponent } from '@ui-modules/investment/components/summary-card/summary-card.component'
 import { InvestmentTypeComponent } from './components/investment-type/investment-type.component'
 import {InvestmentService} from "@ui-modules/investment/services/investment.service";
-import {IsActiveInvestmentHistory} from "@ui-modules/investment/guards/is-active-investment-history.guard";
+import {InvestmentHistoryGuard} from "@ui-modules/investment/guards/is-active-investment-history.guard";
 
 @NgModule({
   declarations: [
@@ -17,6 +17,6 @@ import {IsActiveInvestmentHistory} from "@ui-modules/investment/guards/is-active
     InvestmentTypeComponent,
   ],
   imports: [SharedModule, CommonModule, InvestmentRoutingModule],
-  providers: [InvestmentService, IsActiveInvestmentHistory]
+  providers: [InvestmentService, InvestmentHistoryGuard]
 })
 export class InvestmentModule {}

@@ -7,7 +7,7 @@ import {
 } from '@angular/router'
 
 @Injectable()
-export class IsActiveInvestmentHistory implements CanActivate {
+export class InvestmentHistoryGuard implements CanActivate {
   constructor(private router: Router) {}
 
   canActivate(
