@@ -1,0 +1,11 @@
+<ul *ngIf="tabsData" class="nav nav-tabs">
+  <li
+    *ngFor="let tab of tabsData; index as tabIndex"
+    (click)="tabHandler(tabIndex)"
+    class="nav-item"
+  >
+    <a class="nav-link" [ngClass]="{ active: activeTab === tabIndex }">{{
+      tabsData[tabIndex] | uppercase
+    }}</a>
+  </li>
+</ul>

@@ -1,0 +1,11 @@
+<div class="card text-center">
+  <div class="card-body">
+    <h5 class="card-title">{{ title }}</h5>
+    <p class="card-text">{{ description }}</p>
+    <shared-primary-btn
+      [btnTextProps]="btnName"
+      [btnLinkProps]="'/navigator'"
+    ></shared-primary-btn>
+  </div>
+  <div class="card-footer text-muted">You have {{ total }} transactions</div>
+</div>

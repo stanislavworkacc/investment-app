@@ -1,0 +1,22 @@
+<ng-container *ngIf="!isLoading; else loader">
+  <investment-heading-card
+    [totalProps]="investmentTotal"
+    [titleProps]="investmentTitle"
+    [descriptionProps]="investmentDesc"
+    [btnNameProps]="investmentBtnName"
+  ></investment-heading-card>
+
+  <div class="cards">
+    <investment-summary-card
+      *ngFor="let type of investmentCategoryType; let tabId = index"
+      [quantityProps]="investmentData[type].length"
+      [categoryProps]="type"
+      [investmentDataProps]="investmentData[type]"
+      [idProps]="tabId"
+    ></investment-summary-card>
+  </div>
+</ng-container>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>
