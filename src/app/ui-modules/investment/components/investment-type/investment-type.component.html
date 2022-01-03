@@ -13,13 +13,13 @@
   <table class="table table-hover">
     <thead>
     <tr>
-      <th scope="col">Name</th>
+      <th class="custom-name" scope="col">Name</th>
       <th scope="col">Amount</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let item of currentSelected">
-      <td>{{ item.name | fullUserName }}</td>
+      <td class="custom-fullName">{{ item.name | fullUserName }}</td>
       <td>46</td>
     </tr>
     </tbody>

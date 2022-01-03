@@ -2,3 +2,8 @@
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+
+shared-tabs {
+  display: flex;
+  justify-content: center;
+}
