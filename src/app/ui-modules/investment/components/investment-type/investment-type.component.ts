@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { filter, takeUntil } from 'rxjs/operators'
+import { Subject } from 'rxjs'
 import { InvestmentService } from '@ui-modules/investment/services/investment.service'
 import { IInvestmentPreparedData } from '@ui-modules/investment/dto/common-investment.interfaces'
 import { IInvestmentData } from '@shared/dto/investment.interfaces'
-import { Subject } from 'rxjs'
 
 @Component({
   selector: 'app-investment-type',
@@ -16,7 +16,7 @@ export class InvestmentTypeComponent implements OnInit, OnDestroy {
   categoryTabsData!: string[]
   currentSelected!: IInvestmentData[]
   preparedInvestmentData!: IInvestmentPreparedData
-  activeTab: number = 0
+  activeTab: number = -1
   destroy$: Subject<boolean> = new Subject<boolean>()
 
   isLoading: boolean = true;
@@ -38,9 +38,7 @@ export class InvestmentTypeComponent implements OnInit, OnDestroy {
     this.preparedInvestmentData =
       await this.investmentService.getInvestmentPrepareData()
     this.categoryTabsData =
-      this.investmentService.prepareInvestmentCategoryType(
-        this.preparedInvestmentData
-      )
+      await this.investmentService.getCategoryTab()
   }
 
   initSubscription(): void {
@@ -49,26 +47,29 @@ export class InvestmentTypeComponent implements OnInit, OnDestroy {
         filter((params: Params) => params.tab),
         takeUntil(this.destroy$)
       )
-      .subscribe((params: Params) => {
+      .subscribe(async (params: Params) => {
         this.isLoading = true;
-        const { tab } = params
-        const categoryTabs: string[] =
-          this.investmentService.prepareInvestmentCategoryType(
-            this.preparedInvestmentData
-          )
-        this.currentSelected = this.preparedInvestmentData[categoryTabs[tab]]
-        this.activeTab = Number(tab)
+        const categoryTabNames: string[] = await this.investmentService.getCategoryTab()
 
-        if (this.isNotFound(categoryTabs)) {
-          this.notFoundRedirect()
-        }
+        this.changeTab(params, categoryTabNames)
 
         this.isLoading = false;
       })
   }
 
+  private changeTab(params: Params, categoryTabNames: string[]): void {
+    const { tab } = params
+    this.activeTab = Number(tab)
+
+    if (this.isNotFound(categoryTabNames)) {
+      this.notFoundRedirect()
+    }
+
+    this.currentSelected = this.preparedInvestmentData[categoryTabNames[tab]]
+  }
+
   private isNotFound(categoryTabs: string[]): boolean {
-    return categoryTabs.length <= this.activeTab
+    return categoryTabs.length <= this.activeTab || this.activeTab === -1
   }
 
   private notFoundRedirect(): void {

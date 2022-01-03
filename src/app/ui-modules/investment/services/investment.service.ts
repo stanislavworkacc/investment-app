@@ -12,6 +12,7 @@ export class InvestmentService implements OnDestroy {
   investmentTypeData!: string[]
   investmentPreparedData!: IInvestmentPreparedData
   activeTab: number = 0
+  categoryTab!: string[]
 
   public destroy$: Subject<boolean> = new Subject<boolean>()
 
@@ -45,14 +46,6 @@ export class InvestmentService implements OnDestroy {
     )
   }
 
-  async getInvestmentPrepareData(): Promise<IInvestmentPreparedData> {
-    if (this.isInvestmentData()) {
-      return this.investmentPreparedData
-    }
-    await this.fetch()
-    return this.investmentPreparedData
-  }
-
   private isInvestmentData(): IInvestmentPreparedData {
     return this.investmentServerData && this.investmentPreparedData
   }
@@ -61,6 +54,24 @@ export class InvestmentService implements OnDestroy {
     investmentData: IInvestmentPreparedData
   ): string[] {
     return Object.keys(investmentData)
+  }
+
+  async getCategoryTab(): Promise<string[]> {
+    const prepareInvestmentData = await this.getInvestmentPrepareData()
+
+    return this.prepareInvestmentCategoryType(prepareInvestmentData);
+  }
+
+  async getInvestmentPrepareData(): Promise<IInvestmentPreparedData> {
+    if (this.isInvestmentData()) {
+      return this.investmentPreparedData
+    }
+    await this.fetch()
+    return this.investmentPreparedData
+  }
+
+  getTotalInvestments(): number {
+    return this.investmentServerData.total
   }
 
   ngOnDestroy(): void {

@@ -27,9 +27,8 @@ export class InvestmentComponent implements OnInit {
     this.investmentData =
       await this.investmentService.getInvestmentPrepareData()
     this.investmentCategoryType =
-      this.investmentService.prepareInvestmentCategoryType(this.investmentData)
-
-    this.investmentTotal = this.investmentService.investmentServerData.total;
+      await this.investmentService.getCategoryTab()
+    this.investmentTotal = this.investmentService.getTotalInvestments();
 
     this.isLoading = false
   }
