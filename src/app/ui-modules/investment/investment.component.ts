@@ -9,8 +9,6 @@ import { IInvestmentPreparedData } from '@ui-modules/investment/dto/common-inves
   styleUrls: ['./investment.component.scss'],
 })
 export class InvestmentComponent implements OnInit {
-  data!: IInvestment
-  investmentTotal: number = 0
   investmentTitle: string = 'Welcome'
   investmentDesc: string =
     'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form'
@@ -18,6 +16,7 @@ export class InvestmentComponent implements OnInit {
 
   investmentData!: IInvestmentPreparedData
   investmentCategoryType!: string[]
+  investmentTotal: number = 0
 
   isLoading: boolean = true;
 
