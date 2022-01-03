@@ -1,7 +1,9 @@
 <div class="card text-right">
   <div class="card-body">
-    <h5 class="card-title">{{ quantity }}</h5>
-    <p class="card-text">{{ categoryTitle | uppercase }}</p>
+    <div class="card__container">
+      <h5 class="card-title">{{ quantity }}</h5>
+      <p class="card-text">{{ categoryTitle | uppercase }}</p>
+    </div>
     <shared-primary-btn
       [btnTextProps]="btnText"
       [btnLinkProps]="'/navigator'"
