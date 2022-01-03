@@ -5,6 +5,7 @@ import { Subject } from 'rxjs'
 import { InvestmentService } from '@ui-modules/investment/services/investment.service'
 import { IInvestmentPreparedData } from '@ui-modules/investment/dto/common-investment.interfaces'
 import { IInvestmentData } from '@shared/dto/investment.interfaces'
+import { isQueryParamNumber} from "@shared/utils/common-utils";
 
 @Component({
   selector: 'app-investment-type',
@@ -59,7 +60,7 @@ export class InvestmentTypeComponent implements OnInit, OnDestroy {
 
   private changeTab(params: Params, categoryTabNames: string[]): void {
     const { tab } = params
-    this.activeTab = Number(tab)
+    this.activeTab = isQueryParamNumber(tab)
 
     if (this.isNotFound(categoryTabNames)) {
       this.notFoundRedirect()
