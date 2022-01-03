@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core'
 import { Router } from '@angular/router'
 
+const REDIRECT_HOME: number = -1;
+
 @Component({
   selector: 'shared-primary-btn',
   templateUrl: './primary-btn.component.html',
@@ -13,8 +15,7 @@ export class PrimaryBtnComponent {
   constructor(private router: Router) {}
 
   onGoCategory(): void {
-    this.router.navigate([this.btnLink], {
-      queryParams: { tab: this.btnId },
-    })
+    const queryParams = this.btnId == REDIRECT_HOME ? {} : {queryParams: {tab: this.btnId}}
+    this.router.navigate([this.btnLink], queryParams);
   }
 }
