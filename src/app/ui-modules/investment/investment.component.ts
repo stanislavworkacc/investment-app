@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core'
 import { InvestmentService } from '@ui-modules/investment/services/investment.service'
-import { IInvestment } from '@shared/dto/investment.interfaces'
 import { IInvestmentPreparedData } from '@ui-modules/investment/dto/common-investment.interfaces'
 
 @Component({

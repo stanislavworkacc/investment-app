@@ -7,7 +7,7 @@ import { HeadingCardComponent } from '@ui-modules/investment/components/heading-
 import { SummaryCardComponent } from '@ui-modules/investment/components/summary-card/summary-card.component'
 import { InvestmentTypeComponent } from './components/investment-type/investment-type.component'
 import {InvestmentService} from "@ui-modules/investment/services/investment.service";
-import {InvestmentHistoryGuard} from "@ui-modules/investment/guards/is-active-investment-history.guard";
+import {InvestmentHistoryGuard} from "@ui-modules/investment/guards/investment-history.guard";
 
 @NgModule({
   declarations: [
