@@ -63,12 +63,17 @@ export class InvestmentService implements OnDestroy {
     if (this.isInvestmentData()) {
       return this.investmentPreparedData
     }
-    await this.fetch()
-    return this.investmentPreparedData
+
+    return this.saveAndGetInvestments();
   }
 
   getTotalInvestments(): number {
     return this.investmentTotal
+  }
+
+  async saveAndGetInvestments(): Promise<IInvestmentPreparedData> {
+    await this.fetch()
+    return this.investmentPreparedData
   }
 
   ngOnDestroy(): void {

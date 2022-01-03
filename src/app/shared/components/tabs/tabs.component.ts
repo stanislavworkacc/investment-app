@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input } from '@angular/core'
 import { Router } from '@angular/router'
 
 @Component({
@@ -6,7 +6,7 @@ import { Router } from '@angular/router'
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.scss'],
 })
-export class TabsComponent implements OnInit {
+export class TabsComponent {
   @Input('activeTabProps') activeTab: number = 0
 
   @Input() tabsData!: string[]
@@ -18,6 +18,4 @@ export class TabsComponent implements OnInit {
 
     this.activeTab = tabIndex
   }
-
-  ngOnInit(): void {}
 }
