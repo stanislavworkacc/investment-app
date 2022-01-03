@@ -3,9 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http'
 import { Observable } from 'rxjs'
 import { environment } from '@env/environment'
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class ApiService {
   constructor(private http: HttpClient) {}
 

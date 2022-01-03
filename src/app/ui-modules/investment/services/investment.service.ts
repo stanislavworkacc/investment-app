@@ -6,9 +6,7 @@ import { IInvestmentPreparedData } from '@ui-modules/investment/dto/common-inves
 import { takeUntil } from 'rxjs/operators'
 import { Subject } from 'rxjs'
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class InvestmentService implements OnDestroy {
   investmentServerData!: IInvestment
   investmentTypeData!: string[]

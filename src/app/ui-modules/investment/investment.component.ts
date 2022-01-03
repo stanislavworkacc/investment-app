@@ -4,7 +4,7 @@ import { IInvestment } from '@shared/dto/investment.interfaces'
 import { IInvestmentPreparedData } from '@ui-modules/investment/dto/common-investment.interfaces'
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-investment',
   templateUrl: './investment.component.html',
   styleUrls: ['./investment.component.scss'],
 })
