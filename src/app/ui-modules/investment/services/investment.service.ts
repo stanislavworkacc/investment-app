@@ -1,4 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core'
+import {Router} from "@angular/router";
 import { ApiService } from '@shared/services/api.service'
 import { Api } from '@shared/dto/api.constants'
 import { IInvestment, IInvestmentData } from '@shared/dto/investment.interfaces'
@@ -13,7 +14,10 @@ export class InvestmentService implements OnDestroy {
 
   public destroy$: Subject<boolean> = new Subject<boolean>()
 
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    private router: Router
+  ) {}
 
   private fetch(): Promise<IInvestmentData[]> {
     return new Promise((res) => {
@@ -79,5 +83,13 @@ export class InvestmentService implements OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next(true)
     this.destroy$.complete()
+  }
+
+  isNotFound(categoryTabs: string[], activeTab: number): boolean {
+    return categoryTabs.length <= activeTab || activeTab === -1
+  }
+
+  notFoundRedirect(): void {
+    this.router.navigate(['/not-found'])
   }
 }

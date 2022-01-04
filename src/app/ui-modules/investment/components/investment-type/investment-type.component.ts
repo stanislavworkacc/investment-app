@@ -63,19 +63,11 @@ export class InvestmentTypeComponent implements OnInit, OnDestroy {
     const selectedTab = isQueryParamNumber(tab);
     this.activeTab = selectedTab;
 
-    if (this.isNotFound(categoryTabNames)) {
-      this.notFoundRedirect()
+    if (this.investmentService.isNotFound(categoryTabNames, this.activeTab)) {
+      this.investmentService.notFoundRedirect()
     }
 
     this.selectedTabData = this.preparedInvestmentData[categoryTabNames[selectedTab]]
-  }
-
-  private isNotFound(categoryTabs: string[]): boolean {
-    return categoryTabs.length <= this.activeTab || this.activeTab === -1
-  }
-
-  private notFoundRedirect(): void {
-    this.router.navigate(['/not-found'])
   }
 
   ngOnDestroy(): void {
